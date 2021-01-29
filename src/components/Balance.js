@@ -1,7 +1,24 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { startLogout } from '../actions/auth';
 
 export const Balance = () => {
-  const [blnc, ] = useState(0);
+
+
+  const dispatch = useDispatch();
+  const { balance } = useSelector( state => state.tr );
+
+  const handleLogout = () => {
+    dispatch(startLogout());
+  }
+
+
   return (
-        <h1> $ {blnc} </h1>
+    <>
+      <button onClick={ handleLogout }>
+        <span>Exit</span>
+      </button>
+
+      <h1>$ {balance} </h1>
+    </>
   )}

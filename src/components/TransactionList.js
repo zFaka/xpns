@@ -1,12 +1,50 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import {trDelete} from '../actions/tr';
 
 export const TransactionList = () => {
-  const [transactions, ] = useState([0]);
+
+
+  const dispatch = useDispatch();
+  const {transactions} = useSelector(state=>state.tr);
+  const tr = transactions.slice(Math.max(transactions.length - 10, 0))
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(trDelete());
+  };
+
+
   return (
-    <ul className="list">
-      {transactions.map(transaction => (
-        <h1>kdjwan</h1>
-      ))}
+    <ul>
+      {
+        tr.map((tr, index) => {
+          return(
+            <li key={`${tr}${index}`}>
+              {tr.trType} 
+
+              <input
+                type='text'
+                value={tr.amount}
+              />
+              <input
+                type='text'
+                value={tr.concept}
+              />
+              <input
+                type='date'
+                value={tr.date}
+              />
+
+              <button
+                onClick={handleDelete}
+              >
+                x
+              </button>
+            </li>
+          )
+        })
+      }
     </ul>
   )
 }

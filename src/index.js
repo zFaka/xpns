@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import {XpnsApp} from './XpnsApp';
 
+import './styles.css';
+
 ReactDOM.render(
-  <XpnsApp/>, 
+    <XpnsApp />,
   document.getElementById('root')
 );
