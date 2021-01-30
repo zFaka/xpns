@@ -1,17 +1,18 @@
 import React from 'react';
 import {useForm} from '../hooks/useForm';
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import {trAddNew, trUpdateBalance} from '../actions/tr';
 import '../index.css' ;
 
 export const NewTransaction = () => {
 
   const dispatch = useDispatch();
-  const [formValues, handleInputChange] = useForm({
+  const [formValues, handleInputChange, reset] = useForm({
     trType:'', 
     amount:'', 
     concept:'', 
-    date:''
+    date:'', 
+    id:''
   });
   const {amount, concept, date} = formValues;
 
@@ -19,21 +20,21 @@ export const NewTransaction = () => {
 
   const handleAddTransaction = (e) => {
     e.preventDefault();
-
-
     if ((amount >= 0) && amount !== '' && concept !== '' && date !== '') {
       formValues.trType = 'income'
+      formValues.id = `income${amount}${concept}${date}`
       dispatch(trAddNew(formValues))
       dispatch(trUpdateBalance(amount))
     } 
     else if ((amount < 0) && amount !== '' && concept !== '' && date !== '') {
       formValues.trType = 'expense' 
+      formValues.id = `expense${amount}${concept}${date}`
       dispatch(trAddNew(formValues))
       dispatch(trUpdateBalance(amount))
     }
-
     else {
       alert('Complete the form correctly')}
+    reset()
   };
 
 
@@ -50,6 +51,7 @@ export const NewTransaction = () => {
       <input 
         type="tel"
         placeholder="Amount"
+        autoComplete="off"
         name="amount"
         value={ amount }
         onChange={ handleInputChange }

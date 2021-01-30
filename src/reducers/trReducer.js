@@ -31,8 +31,8 @@ export const trReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 transactions:state.transactions.filter(e => (
-                        e.id === state.transactions.id
-                ))
+                    e.id !== action.payload
+                )), 
             }
 
         default:

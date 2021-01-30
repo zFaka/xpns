@@ -27,5 +27,7 @@ const trUpdatedBalance = (balance) => ({
 
 
 
-export const trDelete = () => ({
-    type: types.trUpdateBalance})
+export const trDelete = (trId) => ({
+    type: types.trDelete, 
+    payload:trId
+})
